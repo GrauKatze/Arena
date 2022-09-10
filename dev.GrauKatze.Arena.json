@@ -1,0 +1,30 @@
+{
+    "app-id" : "dev.GrauKatze.Arena",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "42",
+    "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
+    "command" : "arena",
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "env" : {
+            "RUST_BACKTRACE" : "1",
+            "RUST_LOG" : "arena=debug"
+        }
+    },
+    "modules" : [
+        {
+            "name" : "arena",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "~/Arena"
+                }
+            ]
+        }
+    ]
+}
