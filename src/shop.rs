@@ -1,3 +1,5 @@
+use crate::user::User;
+
 use std::io::Write;
 pub enum ShopList {
 // name (name, price, effect)
@@ -9,11 +11,21 @@ pub enum ShopList {
 
 impl ShopList {
 
-    pub fn shops_menu(){
+    pub fn shops_menu(us: &mut User){
+
         let hill = ShopList::Hill("Hill".to_string(),10,5);
         let attack = ShopList::Attack("attack".to_string(),10,5);
         let deffend = ShopList::Deffend("def".to_string(),10,5);
         let health = ShopList::Health("health".to_string(),10,5);
+
+        let menu_shop_list =["\nShop list",
+        "1. hill",
+        "2. attack",
+        "3. deffend",
+        "4. health"];
+        for el in menu_shop_list{
+            println!("{}",el);
+        }
 
         loop{
             print!("Enter num [SHOP] >> ");
@@ -29,22 +41,22 @@ impl ShopList {
             match input {
                 1 => {
                     println!("one");
-                    Self::take_item(hill);
+                    Self::take_item(us, hill);
                     break;
                 },
                 2 => {
                     println!("two");
-                    Self::take_item(attack);
+                    Self::take_item(us, attack);
                     break;
                 },
                 3 => {
                     println!("three");
-                    Self::take_item(deffend);
+                    Self::take_item(us, deffend);
                     break;
                 },
                 4 =>{
                     println!("four");
-                    Self::take_item(health);
+                    Self::take_item(us, health);
                     break;
                 },
                 0 => {
@@ -56,9 +68,9 @@ impl ShopList {
         }
 
     }
-    fn take_item(sl: ShopList){
+    fn take_item(_us: &mut User, sl: ShopList){
         match sl {
-            ShopList::Hill(name, _price, _effect)=>{
+            ShopList::Hill(name, _price, _effect) => {
                 println!("{}", name);
             }
             ShopList::Attack(name, _price, _effect)=>{

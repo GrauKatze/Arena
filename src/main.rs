@@ -2,17 +2,24 @@ mod user;
 mod shop;
 
 use std::io::Write;
-use crate::shop::{ShopList};
+use crate::shop::ShopList;
+use crate::user::User;
 
 fn main() {
-    menu();
+    let mut new_name = String::new();
+    std::io::stdin().read_line(&mut new_name).expect("wrong line");
+    let mut user = User::init(new_name);
+    menu(&mut user);
 }
-fn menu(){
-    let _start_menu_list = ["\nОсновное меню:",
+fn menu(user: &mut User){
+    let start_menu_list = ["\nОсновное меню:",
             "1. Магазин",
-            "2. В бой",
+            "2. В бой (not work)",
             "3. Стата",
             "4. Выход"];
+    for el in start_menu_list {
+        println!("{}",el);
+    }
     loop {
 
         print!("Enter num [MENU] >> ");
@@ -27,14 +34,20 @@ fn menu(){
         };
         match input {
             1 => {
-                println!("one");
-                ShopList::shops_menu();
-                break;
+                println!("Shop");
+                ShopList::shops_menu(user);
             },
             2 => {
-                println!("two");
+                println!("Battle");
+            },
+            3 => {
+                println!("Your status");
+                User::get_status(user);
+            },
+            4 => {
+                println!("Exit");
                 break;
-            }
+            },
             _ => println!("Error"),
         }
     }
